@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <%- include('partials/head', { title: 'Home - ChatApp' }) %>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="/">💬 ChatApp</a>
+      <div class="d-flex">
+        <span class="navbar-text me-3">Hi, <%= user.username %></span>
+        <a href="/mymessages" class="btn btn-outline-light btn-sm me-2">My Messages</a>
+        <a href="/logout" class="btn btn-danger btn-sm">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container py-4">
+    <div class="row">
+      <div class="col-md-8 mx-auto">
+        <div class="card bg-light shadow-sm">
+          <div class="card-body">
+            <h4 class="mb-4 text-center fw-semibold">Public Chat</h4>
+
+            <div class="chat-box mb-4">
+              <% messages.forEach(m => { %>
+                <div class="chat-msg mb-3 p-3 rounded shadow-sm">
+                  <div class="fw-bold text-primary"><%= m.sender %></div>
+                  <div><%= m.message %></div>
+                  <small class="text-muted"><%= m.formatted_time %></small>
+                </div>
+              <% }) %>
+            </div>
+
+            <form action="/post" method="POST" class="d-flex">
+              <input type="text" name="message" class="form-control me-2" placeholder="Write a message..." required>
+              <button class="btn btn-primary">Send</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
