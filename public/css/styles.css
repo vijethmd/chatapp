@@ -1,5 +1,7 @@
 body {
-  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  font-family: "Segoe UI", sans-serif;
+  color: #fff;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
 }
 
 .navbar {
@@ -9,6 +11,15 @@ body {
 .chat-box {
   max-height: 400px;
   overflow-y: auto;
+}
+
+.chat-thread::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-thread::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 3px;
 }
 
 .chat-msg {
@@ -22,11 +33,11 @@ body {
   border-radius: 10px;
 }
 
-body {
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
-  color: #fff;
-  font-family: 'Arial', sans-serif;
+.card {
+  border: none;
+  border-radius: 12px;
 }
+
 
 .btn-lg {
   font-weight: 600;
@@ -43,28 +54,32 @@ body {
   color: #fff;
 }
 
+.btn-primary {
+  background-color: #0d6efd;
+  border: none;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+}
+
+
 h1 {
   text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
 }
 
-body {
-  font-family: "Segoe UI", sans-serif;
-}
 
-.card {
-  border-radius: 12px;
+.list-group-item {
+  border-radius: 8px;
+  margin-bottom: 4px;
+  transition: background 0.2s;
 }
 
 .list-group-item.active {
   background-color: #0d6efd !important;
   border-color: #0d6efd !important;
   color: #fff !important;
-}
-
-.list-group-item {
-  border-radius: 8px;
-  margin-bottom: 4px;
-  transition: background 0.2s;
 }
 
 .list-group-item:hover {
@@ -86,44 +101,14 @@ body {
   border-radius: 3px;
 }
 
+
 textarea:focus,
-input:focus {
-  border-color: #0d6efd;
-  box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
-}
-
-.chat-thread::-webkit-scrollbar {
-  width: 6px;
-}
-
-.chat-thread::-webkit-scrollbar-thumb {
-  background-color: #ccc;
-  border-radius: 3px;
-}
-
-body {
-  font-family: "Segoe UI", sans-serif;
-  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-}
-
-.card {
-  border: none;
-}
-
+input:focus,
 input.form-control:focus {
   border-color: #0d6efd;
   box-shadow: 0 0 8px rgba(13, 110, 253, 0.3);
 }
 
-.btn-primary {
-  background-color: #0d6efd;
-  border: none;
-  transition: 0.3s;
-}
-
-.btn-primary:hover {
-  background-color: #0b5ed7;
-}
 
 a {
   color: #0d6efd;
