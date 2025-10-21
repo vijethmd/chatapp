@@ -3,11 +3,9 @@
   <%- include('partials/head', { title: 'Welcome to ChatApp' }) %>
 <body class="d-flex flex-column justify-content-center align-items-center vh-100 bg-light">
   <div class="text-center">
-    <!-- Logo / App Name -->
     <h1 class="display-3 fw-bold mb-4 text-primary">💬 ChatApp</h1>
     <p class="lead mb-2">Connect, Chat and Share Messages with your friends instantly!</p>
 
-    <!-- Dynamic number of users -->
     <p class="mb-5">
   Currently <span class="fw-bold text-primary"><%= totalUsers %></span> user<%= totalUsers !== 1 ? 's' : '' %> have joined
 </p>

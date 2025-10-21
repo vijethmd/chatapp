@@ -129,31 +129,39 @@ app.post("/signup", async (req, res) => {
 
     if (results.length > 0) {
       req.flash("error_msg", "Username or email already exists");
-      return res.redirect("/signup");
+      return res.redirect("/login");
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const otp = Math.floor(100000 + Math.random() * 900000);
 
-    const sql = `
-      INSERT INTO unauth_users (username, email, password, otp)
-      VALUES (?, ?, ?, ?)
-      ON DUPLICATE KEY UPDATE otp = VALUES(otp)
-    `;
-    db.query(sql, [username, email, hashedPassword, otp], async (err2) => {
-      if (err2) {
-        console.error(err2);
-        req.flash("error_msg", "Something went wrong. Please try again.");
-        return res.redirect("/signup");
+    const sql2 = "SELECT * FROM unauth_users WHERE email = ?";
+    db.query(sql2, [email], async (err, result) => {
+      if (err) throw err;
+
+      if (result.length === 0) {
+        const sql3 = `INSERT INTO unauth_users (username, email, password, otp)
+                      VALUES (?, ?, ?, ?)`;
+        db.query(sql3, [username, email, hashedPassword, otp], (err, results) => {
+          if (err) throw err;
+          console.log("User inserted:", results);
+        });
+      } else {
+        const sql4 = `UPDATE unauth_users SET otp = ? WHERE email = ?`;
+        db.query(sql4, [otp, email], (err, result) => {
+          if (err) throw err;
+          console.log("OTP updated for:", email);
+        });
       }
 
+      // ✅ MAIL SENDING SHOULD BE HERE (inside this callback)
       const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
-});
+        service: "gmail",
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS
+        }
+      });
 
       const mailOptions = {
         from: process.env.EMAIL_USER,
@@ -171,9 +179,9 @@ app.post("/signup", async (req, res) => {
         req.flash("error_msg", "Failed to send OTP. Try again later.");
         return res.redirect("/signup");
       }
-    });
-  });
-});
+    }); // closes sql2 query
+  }); // closes user check query
+}); // closes route
 
 
 
